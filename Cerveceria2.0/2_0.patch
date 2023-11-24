@@ -1,0 +1,1123 @@
+Subject: [PATCH] 2.0
+---
+Index: src/Cerveceria/Articulo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Cerveceria/Articulo.java b/src/Cerveceria/Articulo.java
+new file mode 100644
+--- /dev/null	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
++++ b/src/Cerveceria/Articulo.java	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
+@@ -0,0 +1,141 @@
++package Cerveceria;
++
++public class Articulo {
++
++    private String idArticulo;
++    private String nombreArticulo;
++    private String descripcionArticulo;
++    private Double precioArticulo;
++    private Integer cantidadArticulo;
++    private String proveedorPerteneciente;
++
++    public Articulo() {
++        this.idArticulo = "";
++        this.nombreArticulo = "";
++        this.descripcionArticulo = "";
++        this.precioArticulo = 0.0;
++        this.cantidadArticulo = 0;
++        this.proveedorPerteneciente = "";
++    }
++
++    public String getIdArticulo() {
++        return idArticulo;
++    }
++    public Boolean setIdArticulo(String idArticulo) {
++        if(idArticulo.length() == 8 && idArticulo.matches("\\d+")) {
++            this.idArticulo = idArticulo;
++            return true;
++        }else {
++            System.out.println("\nId Articulo debe ser de 8 caracteres y sólamente números...\n");
++            return false;
++        }
++    }
++
++    public String getNombreArticulo() {
++        return nombreArticulo;
++    }
++    public Boolean setNombreArticulo(String nombreArticulo) {
++        nombreArticulo = nombreArticulo.replace(" ", "");
++        nombreArticulo = nombreArticulo.replace("á","a");
++        nombreArticulo = nombreArticulo.replace("é","e");
++        nombreArticulo = nombreArticulo.replace("í","i");
++        nombreArticulo = nombreArticulo.replace("ó","o");
++        nombreArticulo = nombreArticulo.replace("ú","u");
++
++        if(nombreArticulo.length() <= 10) {
++            this.nombreArticulo = nombreArticulo.toUpperCase();
++            return true;
++        }else {
++            return false;
++        }
++    }
++
++    public String getDescripcionArticulo() {
++        return descripcionArticulo;
++    }
++    public Boolean setDescripcionArticulo(String descripcionArticulo) {
++        this.descripcionArticulo = descripcionArticulo;
++        return true;
++    }
++
++    public Double getPrecioArticulo() {
++        return precioArticulo;
++    }
++    public Boolean setPrecioArticulo(Double precioArticulo) {
++        if(precioArticulo > 0){
++            this.precioArticulo = precioArticulo;
++            return true;
++        }else{
++            System.out.println("El precio no puede ser menor o igual a 0...");
++            return false;
++        }
++    }
++    public Boolean setPrecioArticulo(String precioArticulo) {
++        if(precioArticulo.matches("\\d+")){
++            if (Double.valueOf(precioArticulo) > 0){
++                this.precioArticulo = Double.valueOf(precioArticulo);
++                return true;
++
++            }else{
++                System.out.println("\nEl valor del precio no puede ser menor o igual a 0...\n");
++                return false;
++            }
++        }else{
++            System.out.println("\nEl precio sólo puede contener numeros\n");
++            return false;
++        }
++    }
++
++    public Integer getCantidadArticulo() {
++        return cantidadArticulo;
++    }
++    public Boolean setCantidadArticulo(Integer cantidadArticulo) {
++        if(cantidadArticulo > 0){
++            this.cantidadArticulo = cantidadArticulo;
++            return true;
++        }else{
++            System.out.println("La cantidad no puede ser menor o igual a 0...");
++            return false;
++        }
++    }
++    public Boolean setCantidadArticulo(String cantidadArticulo){
++        if(cantidadArticulo.matches("\\d+")){
++            if (Integer.valueOf(cantidadArticulo) > 0){
++                this.cantidadArticulo = Integer.valueOf(cantidadArticulo);
++                return true;
++
++            }else{
++                System.out.println("\nLa cantidad no puede ser menor o igual a 0...\n");
++                return false;
++            }
++        }else{
++            System.out.println("\nLa cantidad sólo puede contener numeros\n");
++            return false;
++        }
++    }
++
++    public String getProveedorPerteneciente() {
++        return proveedorPerteneciente;
++    }
++    public Boolean setProveedorPerteneciente(String proveedorPerteneciente) {
++        this.proveedorPerteneciente = proveedorPerteneciente.toUpperCase();
++        return true;
++    }
++
++    public void mostrarDatosArticulo(){
++        System.out.println(
++                        "Id Articulo: "
++                        + idArticulo + "\n" +
++                        "Nombre Articulo: "
++                        + nombreArticulo +
++                        "Descripción Articulo: "
++                        + descripcionArticulo + "\n" +
++                        "Precio Articulo: "
++                        + precioArticulo + "\n" +
++                        "Cantidad Articulo: "
++                        + cantidadArticulo + "\n" +
++                        " Proveedor Perteneciente: "
++                        + proveedorPerteneciente + "\n"
++        );
++    }
++}
+Index: src/Cerveceria/Cliente.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Cerveceria/Cliente.java b/src/Cerveceria/Cliente.java
+new file mode 100644
+--- /dev/null	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
++++ b/src/Cerveceria/Cliente.java	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
+@@ -0,0 +1,143 @@
++package Cerveceria;
++
++public class Cliente{
++
++    private String idCliente;
++    private String nombres;
++    private String apellido1;
++    private String apellido2;
++    private String correoCliente;
++    private String contraseniaCliente;
++    private String telefonoCliente;
++    private String direccionCliente;
++
++    public Cliente() {
++        this.idCliente = "";
++        this.nombres = "";
++        this.apellido1 = "";
++        this.apellido2 = "";
++        this.correoCliente = "";
++        this.telefonoCliente = "";
++        this.direccionCliente = "";
++    }
++
++    public String getIdCliente() {
++        return idCliente;
++    }
++    public boolean setIdCliente(String idCliente) {
++        if(idCliente.length() == 8 && idCliente.matches("\\d+")) {
++            this.idCliente = idCliente;
++            return true;
++        }else {
++            System.out.println("\nId Cliente debe ser de 8 caracteres y sólamente números...\n");
++            return false;
++        }
++    }
++
++    public String getNombres() {
++        return nombres;
++    }
++    public Boolean setNombres(String nombres) {
++        if(nombres.matches(".*\\d.*+")){
++            System.out.println("\nEl Nombre no puede contener números...\n");
++            return false;
++        }else{
++            this.nombres = nombres.toUpperCase();
++            return true;
++        }
++    }
++
++    public String getApellido1() {
++        return apellido1;
++    }
++    public Boolean setApellido1(String apellido1) {
++        if(apellido1.matches(".*\\d.*+")){
++            System.out.println("\nEl Apellido no puede contener números...\n");
++            return false;
++        }else{
++            this.apellido1 = apellido1.toUpperCase();
++            return true;
++        }
++    }
++
++    public String getApellido2() {
++        return apellido2;
++    }
++    public Boolean setApellido2(String apellido2) {
++        if(apellido2.matches(".*\\d.*+")){
++            System.out.println("\nEl Apellido no puede contener números...\n");
++            return false;
++        }else{
++            this.apellido2 = apellido2.toUpperCase();
++            return true;
++        }
++    }
++
++    public String getCorreoCliente() {
++        return correoCliente;
++    }
++    public Boolean setCorreoCliente(String correoCliente) {
++        if(correoCliente.contains("@") && correoCliente.contains(".") && !correoCliente.contains(" ")){
++            this.correoCliente = correoCliente.toLowerCase();
++            return true;
++        }
++        else {
++            System.out.println("\nEl correo no es valido...\n");
++            return false;
++        }
++    }
++
++    public String getContraseniaCliente() {
++        return contraseniaCliente;
++    }
++
++    public Boolean setContraseniaCliente(String contraseniaCliente) {
++        if (contraseniaCliente.length() < 8){
++            System.out.println("\nLa contraseña debe contener más de 8 caracteres...\n");
++            return false;
++        } else if (contraseniaCliente.matches("\\d{2,}")) {
++            System.out.println("\nLA contraseña debe tener por lo menos 2 caracteres numéricos...\n");
++            return false;
++        }else{
++            this.contraseniaCliente = contraseniaCliente;
++            return true;
++        }
++    }
++
++    public String getTelefonoCliente() {
++        return telefonoCliente;
++    }
++    public Boolean setTelefonoCliente(String telefonoCliente) {
++        if(telefonoCliente.length() == 10 && telefonoCliente.matches("\\d+")) {
++            this.telefonoCliente = telefonoCliente;
++            return true;
++        }else {
++            System.out.println("\nEl Teléfono debe ser de 10 dígitos...");
++            return false;
++        }
++    }
++
++
++    public String getDireccionCliente() {
++        return direccionCliente;
++    }
++    public Boolean setDireccionCliente(String direccionCliente) {
++        this.direccionCliente = direccionCliente;
++        return true;
++    }
++
++    public void mostrarDatosCliente(){
++        System.out.println(
++                "Id Cliente: "
++                + idCliente + "\n" +
++                "Nombre Cliente: "
++                + nombres + " " + apellido1 + " " + apellido2 + "\n" +
++                "Correo Cliente: "
++                + correoCliente + "\n" +
++                "Telefono Cliente: "
++                + telefonoCliente + "\n" +
++                "Dirección Cliente: "
++                + direccionCliente + "\n"
++        );
++    }
++}
+Index: src/Cerveceria/FuncionesArticulos.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Cerveceria/FuncionesArticulos.java b/src/Cerveceria/FuncionesArticulos.java
+new file mode 100644
+--- /dev/null	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
++++ b/src/Cerveceria/FuncionesArticulos.java	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
+@@ -0,0 +1,225 @@
++package Cerveceria;
++
++import java.util.Scanner;
++import java.util.ArrayList;
++
++public class FuncionesArticulos {
++
++    //Scanner para obtener entradas
++    static Scanner entrada = new Scanner(System.in);
++
++    //Arreglos para Articulos
++    static ArrayList<Articulo> listaArticulos = new ArrayList<>();
++
++    //Funciones Articulos
++    public static void verArticulos(){
++        Main.limpiarPantalla();
++
++        System.out.println("Inventario de Artículos: \n");
++        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++        System.out.printf("%-25S", "ID");
++        System.out.printf("%-25S", "Nombre");
++        System.out.printf("%-50S", "Descripción");
++        System.out.printf("%-25S", "Precio");
++        System.out.printf("%-25S", "Cantidad");
++        System.out.printf("%-25S", "Proveedor");
++        System.out.println();
++        for (Articulo objeto1 : listaArticulos) {
++            System.out.printf("%-25S", objeto1.getIdArticulo());
++            System.out.printf("%-25S", objeto1.getNombreArticulo());
++            System.out.printf("%-50S", objeto1.getDescripcionArticulo());
++            System.out.printf("%-25S", "$" + objeto1.getPrecioArticulo());
++            System.out.printf("%-25S", objeto1.getCantidadArticulo());
++            System.out.printf("%-25S", objeto1.getProveedorPerteneciente());
++            System.out.println();
++
++        }
++        System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++        Main.enterParaContinuar();
++    }
++
++    public static void agregarArticulos() {
++
++        Articulo objeto = new Articulo();
++
++        Main.limpiarPantalla();
++
++        System.out.println("Agrega los datos para el nuevo Articulo\n\n");
++        do{
++            System.out.print("ID del Articulo: ");
++        }while(!objeto.setIdArticulo(entrada.nextLine()));
++        for (Articulo objeto1 : listaArticulos){
++            if (objeto.getIdArticulo().equals(objeto1.getIdArticulo())){
++                System.out.println("\nEl ID ya Existe... Error al agregar Articulo\n");
++                Main.enterParaContinuar();
++                return;
++            }
++        }
++        do{
++            System.out.print("Nombre del Articulo: ");
++        }while(!objeto.setNombreArticulo(entrada.nextLine()));
++        do{
++            System.out.print("Descripción del Articulo: ");
++        }while(!objeto.setDescripcionArticulo(entrada.nextLine()));
++        do{
++            System.out.print("Precio del Articulo: ");
++        }while(!objeto.setPrecioArticulo(entrada.nextLine()));
++        do{
++            System.out.print("Cantidad del Articulo: ");
++        }while(!objeto.setCantidadArticulo(entrada.nextLine()));
++        do{
++            System.out.print("Proveedor del Articulo: ");
++        }while(!objeto.setProveedorPerteneciente(entrada.nextLine()));
++
++        listaArticulos.add(objeto);
++
++        System.out.println("\nArticulo Agregado con Exito!!\n");
++        Main.enterParaContinuar();
++        Main.limpiarPantalla();
++    }
++
++    public static void modificarArticulos(){
++
++        Main.limpiarPantalla();
++        System.out.print("Indica el ID del Articulo que deseas modificar: ");
++        String opcIdModificar = entrada.nextLine();
++
++        for (int x = 0 ; x <= listaArticulos.size() - 1 ; x++ ){
++
++            Articulo objeto = listaArticulos.get(x);
++
++            if (objeto.getIdArticulo().equals(opcIdModificar)) {
++
++                System.out.println("\nAgrega los nuevos datos del Articulo\n\n");
++                do{
++                    System.out.print("Nombre del Articulo: ");
++                }while(!objeto.setNombreArticulo(entrada.nextLine()));
++                do{
++                    System.out.print("Descripción del Articulo: ");
++                }while(!objeto.setDescripcionArticulo(entrada.nextLine()));
++                do{
++                    System.out.print("Precio del Articulo: ");
++                }while(!objeto.setPrecioArticulo(entrada.nextLine()));
++                do{
++                    System.out.print("Cantidad del Articulo: ");
++                }while(!objeto.setCantidadArticulo(entrada.nextLine()));
++                do{
++                    System.out.print("Proveedor del Articulo: ");
++                }while(!objeto.setProveedorPerteneciente(entrada.nextLine()));
++
++                listaArticulos.set(x, objeto);
++
++                System.out.println("\nArticulo Agregado con Exito!!\n");
++                Main.enterParaContinuar();
++                Main.limpiarPantalla();
++                break;
++            }
++            if (x == listaArticulos.size() -1){
++                System.out.println("\nEl ID no se encontró...\n");
++                Main.enterParaContinuar();
++            }
++        }
++    }
++
++    public static void buscarArticulos(){
++
++        Main.limpiarPantalla();
++        System.out.print("Indica el ID del Articulo que deseas Buscar: ");
++        String opcIdbuscar = entrada.nextLine();
++
++        for (int x = 0 ; x <= listaArticulos.size() - 1 ; x++ ){
++
++            Articulo objeto = listaArticulos.get(x);
++
++            if (objeto.getIdArticulo().equals(opcIdbuscar)) {
++
++                System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                System.out.printf("%-25S", "ID");
++                System.out.printf("%-25S", "Nombre");
++                System.out.printf("%-50S", "Descripción");
++                System.out.printf("%-25S", "Precio");
++                System.out.printf("%-25S", "Cantidad");
++                System.out.printf("%-25S", "Proveedor");
++                System.out.println();
++                System.out.printf("%-25S", objeto.getIdArticulo());
++                System.out.printf("%-25S", objeto.getNombreArticulo());
++                System.out.printf("%-50S", objeto.getDescripcionArticulo());
++                System.out.printf("%-25S", "$" + objeto.getPrecioArticulo());
++                System.out.printf("%-25S", objeto.getCantidadArticulo());
++                System.out.printf("%-25S", objeto.getProveedorPerteneciente());
++                System.out.println();
++                System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                Main.enterParaContinuar();
++                break;
++            }
++            if (x == listaArticulos.size() -1){
++                System.out.println("\nEl ID no se encontró...\n");
++                Main.enterParaContinuar();
++            }
++        }
++
++    }
++
++    public static void eliminarArticulos(){
++
++        Main.limpiarPantalla();
++        System.out.print("Indica el ID del Articulo que deseas Eliminar: ");
++        String opcIdEliminar = entrada.nextLine();
++        String opcMenuArticulos = "";
++
++        for (int x = 0 ; x <= listaArticulos.size() - 1 ; x++ ){
++
++            Articulo objeto = listaArticulos.get(x);
++
++            if (objeto.getIdArticulo().equals(opcIdEliminar)) {
++
++                do{
++                    System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                    System.out.printf("%-25S", "ID");
++                    System.out.printf("%-25S", "Nombre");
++                    System.out.printf("%-50S", "Descripción");
++                    System.out.printf("%-25S", "Precio");
++                    System.out.printf("%-25S", "Cantidad");
++                    System.out.printf("%-25S", "Proveedor");
++                    System.out.println();
++                    System.out.printf("%-25S", objeto.getIdArticulo());
++                    System.out.printf("%-25S", objeto.getNombreArticulo());
++                    System.out.printf("%-50S", objeto.getDescripcionArticulo());
++                    System.out.printf("%-25S", "$" + objeto.getPrecioArticulo());
++                    System.out.printf("%-25S", objeto.getCantidadArticulo());
++                    System.out.printf("%-25S", objeto.getProveedorPerteneciente());
++                    System.out.println();
++                    System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                    System.out.println("\nEste es el Artículo que deseas eliminar? (Y - N)");
++                    opcMenuArticulos = entrada.nextLine().toUpperCase();
++
++                    if (opcMenuArticulos.equals("Y")){
++                        listaArticulos.remove(x);
++                        System.out.println("\nArticulo Eliminado con Exito!!");
++                        Main.enterParaContinuar();
++                        break;
++                    } else if (opcMenuArticulos.equals("N")) {
++                        System.out.println("\nEntendido!!");
++                        Main.enterParaContinuar();
++                    }else{
++                        System.out.println("\nOpción no Valida");
++                        Main.enterParaContinuar();
++                        Main.limpiarPantalla();
++                    }
++                }while(!opcMenuArticulos.equalsIgnoreCase("Y") && !opcMenuArticulos.equalsIgnoreCase("N"));
++                break;
++            }
++            if (x == listaArticulos.size() -1){
++                System.out.println("\nEl ID no se encontró...\n");
++                Main.enterParaContinuar();
++            }
++        }
++
++    }
++
++}
++
++
++
++
++
+Index: src/Cerveceria/FuncionesCliente.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Cerveceria/FuncionesCliente.java b/src/Cerveceria/FuncionesCliente.java
+new file mode 100644
+--- /dev/null	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
++++ b/src/Cerveceria/FuncionesCliente.java	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
+@@ -0,0 +1,223 @@
++package Cerveceria;
++
++import java.util.Scanner;
++import java.util.ArrayList;
++
++public class FuncionesCliente {
++
++    //Scanner para obtener entradas
++    static Scanner entrada = new Scanner(System.in);
++
++    //Arreglos para Clientes
++    static ArrayList<Cliente> listaClientes = new ArrayList<>();
++
++    public static void verClientes(){
++        Main.limpiarPantalla();
++
++        System.out.println("Lista de Clientes: \n");
++        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++        System.out.printf("%-25S", "ID");
++        System.out.printf("%-25S", "Nombre");
++        System.out.printf("%-50S", "Correo Electrónico");
++        System.out.printf("%-25S", "Teléfono");
++        System.out.printf("%-25S", "Dirección");
++        System.out.println();
++        for (Cliente objeto : listaClientes) {
++            System.out.printf("%-25S", objeto.getIdCliente());
++            System.out.printf("%-25S", objeto.getNombres() + " " + objeto.getApellido1() + " " + objeto.getApellido2());
++            System.out.printf("%-50S", objeto.getCorreoCliente());
++            System.out.printf("%-25S", objeto.getTelefonoCliente());
++            System.out.printf("%-25S", objeto.getDireccionCliente());
++            System.out.println();
++        }
++        System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++        Main.enterParaContinuar();
++    }
++
++    public static void agregarCliente() {
++
++        Cliente objeto = new Cliente();
++
++        Main.limpiarPantalla();
++
++        System.out.println("Agrega los datos para el nuevo Cliente\n\n");
++        do{
++            System.out.print("ID del Cliente: ");
++        }while(!objeto.setIdCliente(entrada.nextLine()));
++        for (Cliente objeto1 : listaClientes){
++            if (objeto.getIdCliente().equals(objeto1.getIdCliente())){
++                System.out.println("\nEl ID ya Existe... Error al agregar Cliente\n");
++                Main.enterParaContinuar();
++                return;
++            }
++        }
++        do{
++            System.out.print("Nombre del Cliente: ");
++        }while(!objeto.setNombres(entrada.nextLine()));
++        do{
++            System.out.print("Apellido Paterno del Cliente: ");
++        }while(!objeto.setApellido1(entrada.nextLine()));
++        do{
++            System.out.print("Apellido Materno del Cliente: ");
++        }while(!objeto.setApellido2(entrada.nextLine()));
++        do{
++            System.out.print("Correo del Cliente: ");
++        }while(!objeto.setCorreoCliente(entrada.nextLine()));
++        do{
++            System.out.print("Contraseña del Cliente: ");
++        }while(!objeto.setContraseniaCliente(entrada.nextLine()));
++        do{
++            System.out.print("Telefono del Cliente: ");
++        }while(!objeto.setTelefonoCliente(entrada.nextLine()));
++        do{
++            System.out.print("Dirección del Cliente: ");
++        }while(!objeto.setDireccionCliente(entrada.nextLine()));
++
++        listaClientes.add(objeto);
++
++        System.out.println("\nCliente Agregado con Exito!!\n");
++        Main.enterParaContinuar();
++        Main.limpiarPantalla();
++    }
++
++    public static void modificarCliente(){
++
++        Main.limpiarPantalla();
++        System.out.print("Indica el ID del Cliente que deseas modificar: ");
++        String opcIdModificar = entrada.nextLine();
++
++        for (int x = 0 ; x <= listaClientes.size() - 1 ; x++ ){
++
++            Cliente objeto = listaClientes.get(x);
++
++            if (objeto.getIdCliente().equals(opcIdModificar)) {
++
++                System.out.println("\nAgrega los nuevos datos del Cliente\n\n");
++                do{
++                    System.out.print("Nombre del Cliente: ");
++                }while(!objeto.setNombres(entrada.nextLine()));
++                do{
++                    System.out.print("Apellido Paterno del Cliente: ");
++                }while(!objeto.setApellido1(entrada.nextLine()));
++                do{
++                    System.out.print("Apellido Materno del Cliente: ");
++                }while(!objeto.setApellido2(entrada.nextLine()));
++                do{
++                    System.out.print("Correo del Cliente: ");
++                }while(!objeto.setCorreoCliente(entrada.nextLine()));
++                do{
++                    System.out.print("Contraseña del Cliente: ");
++                }while(!objeto.setContraseniaCliente(entrada.nextLine()));
++                do{
++                    System.out.print("Telefono del Cliente: ");
++                }while(!objeto.setTelefonoCliente(entrada.nextLine()));
++                do{
++                    System.out.print("Dirección del Cliente: ");
++                }while(!objeto.setDireccionCliente(entrada.nextLine()));
++
++                listaClientes.set(x, objeto);
++
++                System.out.println("\nCliente Agregado con Exito!!\n");
++                Main.enterParaContinuar();
++                Main.limpiarPantalla();
++                break;
++            }
++            if (x == listaClientes.size() -1){
++                System.out.println("\nEl ID no se encontró...\n");
++                Main.enterParaContinuar();
++            }
++        }
++    }
++
++    public static void buscarCliente(){
++
++        Main.limpiarPantalla();
++        System.out.print("Indica el ID del Cliente que deseas Buscar: ");
++        String opcIdbuscar = entrada.nextLine();
++
++        for (int x = 0 ; x <= listaClientes.size() - 1 ; x++ ){
++
++            Cliente objeto = listaClientes.get(x);
++
++            if (objeto.getIdCliente().equals(opcIdbuscar)) {
++
++                System.out.println("Lista de Clientes: \n");
++                System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                System.out.printf("%-25S", "ID");
++                System.out.printf("%-25S", "Nombre");
++                System.out.printf("%-50S", "Correo Electrónico");
++                System.out.printf("%-25S", "Teléfono");
++                System.out.printf("%-25S", "Dirección");
++                System.out.println();
++                System.out.printf("%-25S", objeto.getIdCliente());
++                System.out.printf("%-25S", objeto.getNombres() + " " + objeto.getApellido1() + " " + objeto.getApellido2());
++                System.out.printf("%-50S", objeto.getCorreoCliente());
++                System.out.printf("%-25S", objeto.getTelefonoCliente());
++                System.out.printf("%-25S", objeto.getDireccionCliente());
++                System.out.println();
++                System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                Main.enterParaContinuar();
++                break;
++            }
++            if (x == listaClientes.size() -1){
++                System.out.println("\nEl ID no se encontró...\n");
++                Main.enterParaContinuar();
++            }
++        }
++    }
++
++    public static void eliminarCliente(){
++
++        Main.limpiarPantalla();
++        System.out.print("Indica el ID del Cliente que deseas Eliminar: ");
++        String opcIdEliminar = entrada.nextLine();
++        String opcMenuClientes = "";
++
++        for (int x = 0 ; x <= listaClientes.size() - 1 ; x++ ){
++
++            Cliente objeto = listaClientes.get(x);
++
++            if (objeto.getIdCliente().equals(opcIdEliminar)) {
++
++                do{
++                    System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                    System.out.printf("%-25S", "ID");
++                    System.out.printf("%-25S", "Nombre");
++                    System.out.printf("%-50S", "Correo Electrónico");
++                    System.out.printf("%-25S", "Teléfono");
++                    System.out.printf("%-25S", "Dirección");
++                    System.out.println();
++                    System.out.printf("%-25S", objeto.getIdCliente());
++                    System.out.printf("%-25S", objeto.getNombres() + " " + objeto.getApellido1() + " " + objeto.getApellido2());
++                    System.out.printf("%-50S", objeto.getCorreoCliente());
++                    System.out.printf("%-25S", objeto.getTelefonoCliente());
++                    System.out.printf("%-25S", objeto.getDireccionCliente());
++                    System.out.println();
++                    System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                    System.out.println("\nEste es el Cliente que deseas eliminar? (Y - N)");
++                    opcMenuClientes = entrada.nextLine().toUpperCase();
++
++                    if (opcMenuClientes.equals("Y")){
++                        listaClientes.remove(x);
++                        System.out.println("\nCliente Eliminado con Exito!!");
++                        Main.enterParaContinuar();
++                        break;
++                    } else if (opcMenuClientes.equals("N")) {
++                        System.out.println("\nEntendido!!");
++                        Main.enterParaContinuar();
++                    }else{
++                        System.out.println("\nOpción no Valida");
++                        Main.enterParaContinuar();
++                        Main.limpiarPantalla();
++                    }
++                }while(!opcMenuClientes.equalsIgnoreCase("Y") && !opcMenuClientes.equalsIgnoreCase("N"));
++                break;
++            }
++            if (x == listaClientes.size() -1){
++                System.out.println("\nEl ID no se encontró...\n");
++                Main.enterParaContinuar();
++            }
++        }
++    }
++
++}
+Index: src/Cerveceria/FuncionesProveedor.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Cerveceria/FuncionesProveedor.java b/src/Cerveceria/FuncionesProveedor.java
+new file mode 100644
+--- /dev/null	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
++++ b/src/Cerveceria/FuncionesProveedor.java	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
+@@ -0,0 +1,207 @@
++package Cerveceria;
++
++import java.util.Scanner;
++import java.util.ArrayList;
++
++public class FuncionesProveedor {
++
++    //Scanner para obtener entradas
++    static Scanner entrada = new Scanner(System.in);
++
++    //Arreglos para Proveedores
++    static ArrayList<Proveedor> listaProveedores = new ArrayList<>();
++
++    public static void verProveedores(){
++        Main.limpiarPantalla();
++
++        System.out.println("Lista de Proveedores: \n");
++        System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++        System.out.printf("%-25S", "ID");
++        System.out.printf("%-25S", "Nombre");
++        System.out.printf("%-50S", "Correo Electrónico");
++        System.out.printf("%-25S", "Teléfono");
++        System.out.printf("%-25S", "Dirección");
++        System.out.println();
++        for (Proveedor objeto : listaProveedores) {
++            System.out.printf("%-25S", objeto.getIdProveedor());
++            System.out.printf("%-25S", objeto.getNombreProveedor());
++            System.out.printf("%-50S", objeto.getCorreoProveedor());
++            System.out.printf("%-25S", objeto.getTelefonoProveedor());
++            System.out.printf("%-25S", objeto.getDireccionProveedor());
++            System.out.println();
++
++        }
++        System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++        Main.enterParaContinuar();
++    }
++
++    public static void agregarProveedor() {
++
++        Proveedor objeto = new Proveedor();
++
++        Main.limpiarPantalla();
++
++        System.out.println("Agrega los datos para el nuevo Proveedor\n\n");
++        do{
++            System.out.print("ID del Proveedor: ");
++        }while(!objeto.setIdProveedor(entrada.nextLine()));
++        for (Proveedor objeto1 : listaProveedores){
++            if (objeto.getIdProveedor().equals(objeto1.getIdProveedor())){
++                System.out.println("\nEl ID ya Existe... Error al agregar Proveedor\n");
++                Main.enterParaContinuar();
++                return;
++            }
++        }
++        do{
++            System.out.print("Nombre del Proveedor: ");
++        }while(!objeto.setNombreProveedor(entrada.nextLine()));
++        do{
++            System.out.print("Correo del Proveedor: ");
++        }while(!objeto.setCorreoProveedor(entrada.nextLine()));
++        do{
++            System.out.print("Telefono del Proveedor: ");
++        }while(!objeto.setTelefonoProveedor(entrada.nextLine()));
++        do{
++            System.out.print("Dirección del Proveedor: ");
++        }while(!objeto.setDireccionProveedor(entrada.nextLine()));
++
++        listaProveedores.add(objeto);
++
++        System.out.println("\nProveedor Agregado con Exito!!\n");
++        Main.enterParaContinuar();
++        Main.limpiarPantalla();
++    }
++
++    public static void modificarProveedor(){
++
++        Main.limpiarPantalla();
++        System.out.print("Indica el ID del Articulo que deseas modificar: ");
++        String opcIdModificar = entrada.nextLine();
++
++        for (int x = 0 ; x <= listaProveedores.size() - 1 ; x++ ){
++
++            Proveedor objeto = listaProveedores.get(x);
++
++            if (objeto.getIdProveedor().equals(opcIdModificar)) {
++
++                System.out.println("\nAgrega los nuevos datos del Proveedor\n\n");
++                do{
++                    System.out.print("Nombre del Proveedor: ");
++                }while(!objeto.setNombreProveedor(entrada.nextLine()));
++                do{
++                    System.out.print("Correo del Proveedor: ");
++                }while(!objeto.setCorreoProveedor(entrada.nextLine()));
++                do{
++                    System.out.print("Telefono del Proveedor: ");
++                }while(!objeto.setTelefonoProveedor(entrada.nextLine()));
++                do{
++                    System.out.print("Dirección del Proveedor: ");
++                }while(!objeto.setDireccionProveedor(entrada.nextLine()));
++
++                listaProveedores.set(x, objeto);
++
++                System.out.println("\nProveedor Agregado con Exito!!\n");
++                Main.enterParaContinuar();
++                Main.limpiarPantalla();
++                break;
++            }
++            if (x == listaProveedores.size() -1){
++                System.out.println("\nEl ID no se encontró...\n");
++                Main.enterParaContinuar();
++            }
++        }
++    }
++
++    public static void buscarProveedor(){
++
++        Main.limpiarPantalla();
++        System.out.print("Indica el ID del Proveedor que deseas Buscar: ");
++        String opcIdbuscar = entrada.nextLine();
++
++        for (int x = 0 ; x <= listaProveedores.size() - 1 ; x++ ){
++
++            Proveedor objeto = listaProveedores.get(x);
++
++            if (objeto.getIdProveedor().equals(opcIdbuscar)) {
++
++                System.out.println("Lista de Proveedores: \n");
++                System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                System.out.printf("%-25S", "ID");
++                System.out.printf("%-25S", "Nombre");
++                System.out.printf("%-50S", "Correo Electrónico");
++                System.out.printf("%-25S", "Teléfono");
++                System.out.printf("%-25S", "Dirección");
++                System.out.println();
++                System.out.printf("%-25S", objeto.getIdProveedor());
++                System.out.printf("%-25S", objeto.getNombreProveedor());
++                System.out.printf("%-50S", objeto.getCorreoProveedor());
++                System.out.printf("%-25S", objeto.getTelefonoProveedor());
++                System.out.printf("%-25S", objeto.getDireccionProveedor());
++                System.out.println();
++                System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                Main.enterParaContinuar();
++                break;
++            }
++            if (x == listaProveedores.size() -1){
++                System.out.println("\nEl ID no se encontró...\n");
++                Main.enterParaContinuar();
++            }
++        }
++    }
++
++    public static void eliminarProveedor(){
++
++        Main.limpiarPantalla();
++        System.out.print("Indica el ID del Proveedor que deseas Eliminar: ");
++        String opcIdEliminar = entrada.nextLine();
++        String opcMenuProveedores = "";
++
++        for (int x = 0 ; x <= listaProveedores.size() - 1 ; x++ ){
++
++            Proveedor objeto = listaProveedores.get(x);
++
++            if (objeto.getIdProveedor().equals(opcIdEliminar)) {
++
++                do{
++                    System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                    System.out.printf("%-25S", "ID");
++                    System.out.printf("%-25S", "Nombre");
++                    System.out.printf("%-50S", "Correo Electrónico");
++                    System.out.printf("%-25S", "Teléfono");
++                    System.out.printf("%-25S", "Dirección");
++                    System.out.println();
++                    System.out.printf("%-25S", objeto.getIdProveedor());
++                    System.out.printf("%-25S", objeto.getNombreProveedor());
++                    System.out.printf("%-50S", objeto.getCorreoProveedor());
++                    System.out.printf("%-25S", objeto.getTelefonoProveedor());
++                    System.out.printf("%-25S", objeto.getDireccionProveedor());
++                    System.out.println();
++                    System.out.println("\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------");
++                    System.out.println("\nEste es el Proveedor que deseas eliminar? (Y - N)");
++                    opcMenuProveedores = entrada.nextLine().toUpperCase();
++
++                    if (opcMenuProveedores.equals("Y")){
++                        listaProveedores.remove(x);
++                        System.out.println("\nProveedor Eliminado con Exito!!");
++                        Main.enterParaContinuar();
++                        break;
++                    } else if (opcMenuProveedores.equals("N")) {
++                        System.out.println("\nEntendido!!");
++                        Main.enterParaContinuar();
++                    }else{
++                        System.out.println("\nOpción no Valida");
++                        Main.enterParaContinuar();
++                        Main.limpiarPantalla();
++                    }
++                }while(!opcMenuProveedores.equalsIgnoreCase("Y") && !opcMenuProveedores.equalsIgnoreCase("N"));
++                break;
++            }
++            if (x == listaProveedores.size() -1){
++                System.out.println("\nEl ID no se encontró...\n");
++                Main.enterParaContinuar();
++            }
++        }
++
++    }
++
++}
+Index: src/Cerveceria/Persona.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Cerveceria/Persona.java b/src/Cerveceria/Persona.java
+new file mode 100644
+--- /dev/null	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
++++ b/src/Cerveceria/Persona.java	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
+@@ -0,0 +1,4 @@
++package Cerveceria;
++
++public class Persona {
++}
+Index: src/Cerveceria/Proveedor.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Cerveceria/Proveedor.java b/src/Cerveceria/Proveedor.java
+new file mode 100644
+--- /dev/null	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
++++ b/src/Cerveceria/Proveedor.java	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
+@@ -0,0 +1,94 @@
++package Cerveceria;
++
++public class Proveedor {
++
++    private String idProveedor;
++    private String nombreProveedor;
++    private String correoProveedor;
++    private String telefonoProveedor;
++    private String direccionProveedor;
++
++    public Proveedor() {
++        this.idProveedor = "";
++        this.nombreProveedor = "";
++        this.correoProveedor = "";
++        this.telefonoProveedor = "";
++        this.direccionProveedor = "";
++    }
++
++    public String getIdProveedor() {
++        return idProveedor;
++    }
++    public Boolean setIdProveedor(String idProveedor) {
++        if(idProveedor.length() == 8 && idProveedor.matches("\\d+")) {
++            this.idProveedor = idProveedor;
++            return true;
++        }else {
++            System.out.println("\nId Proveedor debe ser de 8 caracteres y sólamente números...\n");
++            return false;
++        }
++    }
++
++    public String getNombreProveedor() {
++        return nombreProveedor;
++    }
++    public Boolean setNombreProveedor(String nombreProveedor) {
++        if(nombreProveedor.matches(".*\\d.*+")){
++            System.out.println("\nEl Nombre no puede contener números...\n");
++            return false;
++        }else{
++            this.nombreProveedor = nombreProveedor.toUpperCase();
++            return true;
++        }
++    }
++
++    public String getCorreoProveedor() {
++        return correoProveedor;
++    }
++    public Boolean setCorreoProveedor(String correoProveedor) {
++        if(correoProveedor.contains("@") && correoProveedor.contains(".") && !correoProveedor.contains(" ")){
++            this.correoProveedor = correoProveedor.toLowerCase();
++            return true;
++        }
++        else {
++            System.out.println("\nEl correo no es valido...\n");
++            return false;
++        }
++    }
++
++    public String getTelefonoProveedor() {
++        return telefonoProveedor;
++    }
++    public Boolean setTelefonoProveedor(String telefonoProveedor) {
++        if(telefonoProveedor.length() == 10 && telefonoProveedor.matches("\\d+")) {
++            this.telefonoProveedor = telefonoProveedor;
++            return true;
++        }else {
++            System.out.println("\nEl Teléfono debe ser de 10 dígitos...\n");
++            return false;
++        }
++    }
++
++    public String getDireccionProveedor() {
++        return direccionProveedor;
++    }
++    public Boolean setDireccionProveedor(String direccionProveedor) {
++        this.direccionProveedor = direccionProveedor;
++        return true;
++    }
++
++    public void mostrarDatosProveedor(){
++        System.out.println(
++                        "Id Proveedor: "
++                        + idProveedor + "\n" +
++                        "Nombre Proveedor: "
++                        + nombreProveedor +
++                        "Correo Proveedor: "
++                        + correoProveedor + "\n" +
++                        "Telefono Proveedor: "
++                        + telefonoProveedor + "\n" +
++                        "Dirección Proveedor: "
++                        + direccionProveedor + "\n"
++        );
++    }
++}
+Index: src/Cerveceria/Usuario.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Cerveceria/Usuario.java b/src/Cerveceria/Usuario.java
+new file mode 100644
+--- /dev/null	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
++++ b/src/Cerveceria/Usuario.java	(revision 8dac7bd80fa8bef3846ef1dbdc82bbd2256204a5)
+@@ -0,0 +1,4 @@
++package Cerveceria;
++
++public class Usuario {
++}
